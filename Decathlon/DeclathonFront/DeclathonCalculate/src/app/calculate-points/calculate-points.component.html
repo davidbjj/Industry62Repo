@@ -1,0 +1,43 @@
+<div class="backcolor">
+  <form [formGroup]="calculateForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="sta-card">
+      <mat-card-content>
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="bot-width">
+              <mat-select placeholder="Declathon events list" formControlName="sportName">
+                <mat-option *ngFor="let sportName of sportLists" [value]="sportName.name">
+                  {{ sportName.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="calculateForm.controls['sportName'].hasError('required')">
+                events is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Input mark point"  pattern="[0-9]+(\.[0-9]{1,2})?%?" type="number" fromControlName="markpoint" id="markpoint">
+              <mat-error *ngIf="calculateForm.controls['markpoint'].hasError('required')">
+                this field is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="btn-wrapper">
+      <button mat-raised-button style="margin:auto;display:block" value="submit" (click)="onClickSubmit()"
+        type="submit">
+        <mat-icon>done_outline</mat-icon> Submit
+      </button>
+    </div>
+    <div *ngIf="isLoading | async" class="overlay">
+      <mat-progress-spinner class="spinner" color="primary" mode="indeterminate" value="50">
+      </mat-progress-spinner>
+    </div>
+  </form>
+</div>
